@@ -1,18 +1,11 @@
 import { User } from '../../models/user.model';
 
+/**
+ * Load Users
+ */
 export class LoadUsers {
     static readonly type = '[User] Load Users'
     constructor(public fromApi: boolean) {}
-}
-
-export class LoadUser {
-    static readonly type = '[User] Load User'
-    constructor(public documentId: string) {}
-}
-
-export class AddUser {
-    static readonly type = '[User] Add User'
-    constructor(public user: User) {}
 }
 
 export class LoadUsersSuccess {
@@ -25,6 +18,14 @@ export class LoadUsersFailure {
     constructor(public error: any) {}
 }
 
+/**
+ * Load User
+ */
+export class LoadUser {
+    static readonly type = '[User] Load User'
+    constructor(public documentId: string) {}
+}
+
 export class LoadUserSuccess {
     static readonly type = '[User] Load User Success'
     constructor(public user: User) {}
@@ -35,6 +36,14 @@ export class LoadUserFailure {
     constructor(public error: any) {}
 }
 
+/**
+ * Add User
+ */
+export class AddUser {
+    static readonly type = '[User] Add User'
+    constructor(public user: User) {}
+}
+
 export class AddUserSuccess {
     static readonly type = '[User] Add User Success'
     constructor(public success: any) {}
@@ -43,4 +52,12 @@ export class AddUserSuccess {
 export class AddUserFailure {
     static readonly type = '[User] Add User Failure'
     constructor(public error: any) {}
+}
+
+/**
+ * Remove User
+ */
+export class RemoveUser {
+    static readonly type = '[User] Remove User'
+    constructor(public documentId: string) {}
 }

@@ -9,33 +9,37 @@ import { map } from 'rxjs/operators'
 export class FirebaseService {
     constructor(private db: AngularFirestore) {}
 
-    getAllFromCollection(collectionName: string): Observable<any> {
+    getAll(collectionName: string): Observable<any> {
         return this.db.collection(collectionName).snapshotChanges()
             .pipe(
                 map(actions => actions.map((a: any) => {
                     const data = a.payload.doc.data()
                     const id = a.payload.doc.id
-                    data.documentId = id
+                    data['documentId'] = id
 
                     return { id, ...data }
                 }))
             )
     }
 
-    addToCollection(collectionName: string, object: any): Promise<any> {
+    add(collectionName: string, object: any): Promise<any> {
         return this.db.collection(collectionName).add(object)
     }
 
-    getOneFromCollection(collectionName: string, documentId: string): Observable<any> {
+    getOne(collectionName: string, documentId: string): Observable<any> {
         return this.db.collection(collectionName).doc(documentId).snapshotChanges()
             .pipe(
                 map(a => {
                     const data = a.payload.data()
                     const id = a.payload.id
-                    data.documentId = id
+                    data['documentId'] = id
 
                     return { id, ...data }
                 })
             )
+    }
+
+    removeOne(collectionName: string, documentId: string) {
+        return this.db.collection(collectionName).doc(documentId).delete()
     }
 }
