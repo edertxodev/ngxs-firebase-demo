@@ -1,0 +1,6 @@
+<div *ngIf="!editing">
+    <h3>{{ user$.name }}</h3>
+    <p>{{ user$.email }}</p>
+</div>
+<app-edit-user *ngIf="editing"></app-edit-user>
+<button (click)="editUser()">Edit</button>

@@ -1,11 +1,5 @@
-<section class="users">
-    <div *ngFor="let user of (users$|async)?.users" class="user">
-        <span>{{ user.id }}</span>
-        <span>{{ user.name }}</span>
-        <span>{{ user.email }}</span><button (click)="deleteUser(user.documentId)">X</button>
-    </div>
-</section>
-
 <section>
-    <button (click)="newUser()">New User</button>
+    <a routerLink="/">Back</a>
+    <a routerLink="/user/new">New User</a>
 </section>
+<router-outlet></router-outlet>

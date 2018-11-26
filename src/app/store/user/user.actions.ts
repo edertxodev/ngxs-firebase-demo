@@ -55,6 +55,24 @@ export class AddUserFailure {
 }
 
 /**
+ * Update User
+ */
+export class UpdateUser {
+    static readonly type = '[User] Update User'
+    constructor(public user: User) {}
+}
+
+export class UpdateUserSuccess {
+    static readonly type = '[User] Update User Success'
+    constructor(public success: any) {}
+}
+
+export class UpdateUserFailure {
+    static readonly type = '[User] Update User Failure'
+    constructor(public error: any) {}
+}
+
+/**
  * Remove User
  */
 export class RemoveUser {

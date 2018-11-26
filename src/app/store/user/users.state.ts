@@ -1,6 +1,5 @@
 import { Action, State, StateContext, Store } from '@ngxs/store'
-
-import { User, UsersStateModel } from '../../models/user.model'
+import { User } from '../../models/user.model'
 import { UsersService } from '../../services/users.service'
 import {
     AddUser,
@@ -10,17 +9,21 @@ import {
     LoadUsers,
     LoadUsersFailure,
     LoadUsersSuccess,
-    LoadUserSuccess, RemoveUser
-} from './user.actions';
+    LoadUserSuccess,
+    RemoveUser,
+    UpdateUser,
+    UpdateUserFailure,
+    UpdateUserSuccess
+} from './user.actions'
 import { FirebaseService } from '../../services/firebase.service'
 
-@State<UsersStateModel>({
+@State({
     name: 'users',
     defaults: {
         users: []
     }
 })
-export class UserState {
+export class UsersState {
     constructor(
         private store: Store,
         private usersService: UsersService,
@@ -100,6 +103,23 @@ export class UserState {
     @Action(AddUserFailure)
     addUserFailure(sc: StateContext<any>, action: AddUserFailure) {
         console.error('Failed to create user. Try again later', action.error)
+    }
+
+    @Action(UpdateUser)
+    updateUser(stateContext: StateContext<User>, action: UpdateUser) {
+        this.firebaseService.add('users', action.user)
+            .then(success => stateContext.dispatch(new UpdateUserSuccess(stateContext)))
+            .catch(error => stateContext.dispatch(new UpdateUserFailure(stateContext)))
+    }
+
+    @Action(UpdateUserSuccess)
+    updateUserSuccess(sc: StateContext<any>, action: UpdateUserSuccess) {
+        sc.patchState({ user: action.success })
+    }
+
+    @Action(UpdateUserFailure)
+    updateUserFailure(sc: StateContext<any>, action: UpdateUserFailure) {
+        console.error('Failed to update user. Try again later', action.error)
     }
 
     @Action(RemoveUser)

@@ -1,0 +1,8 @@
+<form [formGroup]="userForm" ngxsForm="user.userForm" (ngSubmit)="onSubmit()" ngxsFormClearOnDestroy="true">
+    <input type="text" formControlName="name" required />
+    <input type="text" formControlName="email" required />
+    <input type="text" formControlName="website" />
+    <button type="submit">Add</button>
+</form>
+
+<p>{{ userForm.status }}</p>
