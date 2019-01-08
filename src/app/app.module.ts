@@ -6,17 +6,15 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin'
 import { HttpClientModule } from '@angular/common/http'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
-import { NgxsFormPluginModule } from '@ngxs/form-plugin'
 import { ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router'
 
 import { AppComponent } from './app.component'
-import { STATES } from './states'
+import { STATES } from './config/states'
 import { environment } from '../environments/environment'
-import { RouterModule } from '@angular/router'
-import { AppRoutes } from './routes'
+import { AppRoutes } from './config/routes'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
-import { UserModule } from './components/user/user.module'
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin'
+import { BrayModule } from './components/bray/bray.module'
 
 @NgModule({
     declarations: [
@@ -27,16 +25,14 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin'
         BrowserModule,
         AngularFirestoreModule,
         AngularFireModule.initializeApp(environment.firebase),
-        NgxsModule.forRoot(STATES, { developmentMode: true }),
+        NgxsModule.forRoot(STATES, { developmentMode: !environment.production }),
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
-        NgxsFormPluginModule.forRoot(),
-        NgxsRouterPluginModule.forRoot(),
         HttpClientModule,
         RouterModule.forRoot(AppRoutes),
         ReactiveFormsModule,
 
-        UserModule
+        BrayModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

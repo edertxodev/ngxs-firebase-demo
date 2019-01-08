@@ -1,4 +1,4 @@
-import { Injectable, Type} from '@angular/core'
+import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -15,7 +15,6 @@ export class FirebaseService {
                 map(actions => actions.map((a: any) => {
                     const data = a.payload.doc.data()
                     const id = a.payload.doc.id
-                    data['documentId'] = id
 
                     return { id, ...data }
                 }))
@@ -26,13 +25,16 @@ export class FirebaseService {
         return this.db.collection(collectionName).add(object)
     }
 
+    update(collectionName: string, data: any) {
+        return this.db.collection(collectionName).doc(data.id).set(data)
+    }
+
     getOne(collectionName: string, documentId: string): Observable<any> {
         return this.db.collection(collectionName).doc(documentId).snapshotChanges()
             .pipe(
                 map(a => {
                     const data = a.payload.data()
                     const id = a.payload.id
-                    data['documentId'] = id
 
                     return { id, ...data }
                 })

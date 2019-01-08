@@ -1,8 +1,0 @@
-<section class="users">
-    <div *ngFor="let user of (users$|async)?.users" class="user">
-        <a routerLink="/user/{{user.documentId}}">
-            {{ user.username }} - {{ user.email }}
-        </a>
-        <button (click)="deleteUser(user.documentId)">X</button>
-    </div>
-</section>

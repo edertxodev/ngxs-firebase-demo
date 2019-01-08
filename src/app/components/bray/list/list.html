@@ -1,0 +1,12 @@
+<section class="brays">
+    <div *ngFor="let bray of (brays$|async)?.brays; let i = index" class="bray">
+        <p>
+            {{ bray.content }} - {{ bray.createdAt|date: 'yyyy/mm/dd HH:mm' }}
+        </p>
+        <button (click)="selectBray(i)">Edit</button>
+        <button (click)="deleteBray(bray.id)">X</button>
+    </div>
+</section>
+
+<app-bray-form [bray]="selectedBray$|async" (editing)="isEditing($event)" *ngIf="editing"></app-bray-form>
+
