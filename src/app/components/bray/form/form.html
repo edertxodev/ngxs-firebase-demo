@@ -1,5 +1,14 @@
-<form [formGroup]="brayForm" (ngSubmit)="onSubmit()">
-    <label>Content</label>
-    <input type="text" formControlName="content" />
-    <button type="submit">Save</button>
-</form>
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="brayForm">
+        <mat-form-field appearance="outline">
+            <textarea matInput #content [maxlength]="contentMaxLength" placeholder="Content" formControlName="content"></textarea>
+            <img src="assets/img/bray-icon-black.png" matSuffix />
+            <mat-hint align="end">{{content.value.length}} / {{ contentMaxLength }}</mat-hint>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions align="center">
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button (click)="onSubmit()" color="accent">Save</button>
+</div>

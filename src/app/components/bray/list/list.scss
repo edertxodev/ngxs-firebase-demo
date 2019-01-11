@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/_variables";
+
+.brays {
+    mat-card {
+        margin-bottom: 10px !important;
+        mat-card-content {
+            margin: 10px 53px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            p {
+                font-size: 1.4em;
+            }
+        }
+    }
+}
+
+button[mat-fab] {
+    z-index: 5;
+    position: fixed;
+    display: flex;
+    align-self: flex-end;
+    bottom: 3%;
+    right: 5%;
+}

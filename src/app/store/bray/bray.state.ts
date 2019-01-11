@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext, Store } from '@ngxs/store'
+import { Action, Selector, State, StateContext } from '@ngxs/store'
 import { FirebaseService } from '../../services/firebase.service'
 import {
     AddBray,
@@ -6,7 +6,7 @@ import {
     BrayStateModel,
     LoadBrays,
     LoadBraysFailure,
-    LoadBraysSuccess,
+    LoadBraysSuccess, RemoveBray,
     UpdateBray,
     UpdateBrayFailure
 } from './bray.actions'
@@ -20,7 +20,7 @@ import {
 export class BrayState {
     private readonly collectionName = 'brays'
 
-    constructor(private store: Store, private firebaseService: FirebaseService) {}
+    constructor(private firebaseService: FirebaseService) {}
 
     @Selector() static brays(state: any[]) { return state }
 
@@ -35,9 +35,9 @@ export class BrayState {
     async loadBrays(ctx: StateContext<BrayStateModel>, action: LoadBrays) {
         this.firebaseService.getAll(this.collectionName)
             .subscribe(res => {
-                this.store.dispatch(new LoadBraysSuccess(res))
+                ctx.dispatch(new LoadBraysSuccess(res))
             }, error => {
-                this.store.dispatch(new LoadBraysFailure(error))
+                ctx.dispatch(new LoadBraysFailure(error))
             })
     }
 
@@ -54,7 +54,7 @@ export class BrayState {
     @Action(AddBray)
     addBray(ctx: StateContext<BrayStateModel>, action: AddBray) {
         this.firebaseService.add(this.collectionName, action.bray)
-            .catch(error => this.store.dispatch(new AddBrayFailure(error)))
+            .catch(error => ctx.dispatch(new AddBrayFailure(error)))
     }
 
     @Action(AddBrayFailure)
@@ -65,11 +65,16 @@ export class BrayState {
     @Action(UpdateBray)
     updateBray(ctx: StateContext<BrayStateModel>, action: UpdateBray) {
         this.firebaseService.update(this.collectionName, action.bray)
-            .catch(error => this.store.dispatch(new UpdateBrayFailure(error)))
+            .catch(error => ctx.dispatch(new UpdateBrayFailure(error)))
     }
 
     @Action(UpdateBrayFailure)
     updateBrayFailure(ctx: StateContext<BrayStateModel>, action: AddBrayFailure) {
         console.error('Failed to upate bray. Try again later', action.error)
+    }
+
+    @Action(RemoveBray)
+    removeBray(ctx: StateContext<BrayStateModel>, action: RemoveBray) {
+        this.firebaseService.removeOne(this.collectionName, action.documentId)
     }
 }

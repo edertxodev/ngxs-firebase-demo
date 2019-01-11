@@ -1,12 +1,32 @@
-<section class="brays">
-    <div *ngFor="let bray of (brays$|async)?.brays; let i = index" class="bray">
-        <p>
-            {{ bray.content }} - {{ bray.createdAt|date: 'yyyy/mm/dd HH:mm' }}
-        </p>
-        <button (click)="selectBray(i)">Edit</button>
-        <button (click)="deleteBray(bray.id)">X</button>
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutGap.lt-md="0" fxLayoutAlign="center" class="brays">
+    <div fxFlex="50" class="bray">
+        <mat-card *ngFor="let bray of (brays$|async)?.brays; let i = index">
+            <mat-card-header>
+                <img src="assets/img/user.jpg" mat-card-avatar />
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>{{ bray.createdAt|dateFormat }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{ bray.content }}</p>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <mat-button-toggle-group>
+                    <mat-button-toggle (click)="openForm(true, i)" matTooltip="Edit Bray" matTooltipClass="default-tooltip">
+                        <mat-icon>edit</mat-icon>
+                    </mat-button-toggle>
+                    <mat-button-toggle (click)="deleteBray(bray.id)" matTooltip="Remove Bray" matTooltipClass="default-tooltip">
+                        <mat-icon>delete</mat-icon>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+            </mat-card-actions>
+        </mat-card>
     </div>
-</section>
+</div>
 
-<app-bray-form [bray]="selectedBray$|async" (editing)="isEditing($event)" *ngIf="editing"></app-bray-form>
+<div *ngIf="(brays$|async)?.length === 0">
+    djkshds
+</div>
 
+<button mat-fab matTooltip="New Bray" matTooltipClass="default-tooltip" (click)="openForm(false)">
+    <img src="assets/img/bray-icon.png" />
+</button>
