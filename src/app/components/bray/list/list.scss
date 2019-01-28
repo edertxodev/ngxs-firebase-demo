@@ -1,16 +1,14 @@
 @import "../../../../assets/scss/_variables";
 
-.brays {
-    mat-card {
-        margin-bottom: 10px !important;
-        mat-card-content {
-            margin: 10px 53px;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            p {
-                font-size: 1.4em;
-            }
+.bray {
+    margin-bottom: 10px !important;
+    mat-card-content {
+        margin: 10px 53px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        p {
+            font-size: 1.4em;
         }
     }
 }

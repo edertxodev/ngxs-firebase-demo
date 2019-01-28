@@ -14,15 +14,17 @@ import { AppComponent } from './app.component'
 import { STATES } from './config/states'
 import { environment } from '../environments/environment'
 import { AppRoutes } from './config/routes'
-import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { BrayModule } from './components/bray/bray.module'
 import { MaterialComponentsModule } from './material.module'
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { LoginComponent } from './components/login/login.component'
+import { AngularFireAuthModule } from '@angular/fire/auth'
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -30,7 +32,9 @@ import { FlexLayoutModule } from '@angular/flex-layout'
         MaterialComponentsModule,
         AngularFirestoreModule,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
         NgxsModule.forRoot(STATES, { developmentMode: !environment.production }),
+        NgxsStoragePluginModule.forRoot(),
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
         HttpClientModule,

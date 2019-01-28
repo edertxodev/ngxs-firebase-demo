@@ -10,6 +10,7 @@ import {
     UpdateBray,
     UpdateBrayFailure
 } from './bray.actions'
+import { LoadingService } from '../../services/loading.service'
 
 @State<BrayStateModel>({
     name: 'brays',
@@ -20,7 +21,7 @@ import {
 export class BrayState {
     private readonly collectionName = 'brays'
 
-    constructor(private firebaseService: FirebaseService) {}
+    constructor(private firebaseService: FirebaseService, private loadingService: LoadingService) {}
 
     @Selector() static brays(state: any[]) { return state }
 
@@ -43,6 +44,7 @@ export class BrayState {
 
     @Action(LoadBraysSuccess)
     loadBraysSuccess(ctx: StateContext<BrayStateModel>, action: LoadBraysSuccess) {
+        this.loadingService.changeLoading(false)
         ctx.patchState({ brays: action.brays })
     }
 

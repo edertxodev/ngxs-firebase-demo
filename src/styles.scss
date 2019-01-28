@@ -39,3 +39,17 @@ button[mat-fab] {
     font-family: $roboto;
     font-size: 1em;
 }
+
+mat-sidenav {
+    background-color: mat-color($mat-brown, 500) !important;
+    border: none !important;
+    a {
+        color: mat-color($mat-brown, 100);
+        padding: 20px;
+        &:hover, &:focus {
+            cursor: pointer;
+            color: #333;
+            background-color: mat-color($mat-brown, 300);
+        }
+    }
+}

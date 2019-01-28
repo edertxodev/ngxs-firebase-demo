@@ -1,31 +1,30 @@
-<div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutGap.lt-md="0" fxLayoutAlign="center" class="brays">
-    <div fxFlex="50" class="bray">
-        <mat-card *ngFor="let bray of (brays$|async)?.brays; let i = index">
-            <mat-card-header>
-                <img src="assets/img/user.jpg" mat-card-avatar />
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>{{ bray.createdAt|dateFormat }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>{{ bray.content }}</p>
-            </mat-card-content>
-            <mat-card-actions align="end">
-                <mat-button-toggle-group>
-                    <mat-button-toggle (click)="openForm(true, i)" matTooltip="Edit Bray" matTooltipClass="default-tooltip">
-                        <mat-icon>edit</mat-icon>
-                    </mat-button-toggle>
-                    <mat-button-toggle (click)="deleteBray(bray.id)" matTooltip="Remove Bray" matTooltipClass="default-tooltip">
-                        <mat-icon>delete</mat-icon>
-                    </mat-button-toggle>
-                </mat-button-toggle-group>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-</div>
+<mat-card *ngFor="let bray of (brays$|async)?.brays; let i = index" class="bray">
+    <mat-card-header>
+        <img src="assets/img/user.jpg" mat-card-avatar />
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>{{ bray.createdAt|dateFormat }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{ bray.content }}</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-button-toggle-group>
+            <mat-button-toggle (click)="openForm(true, i)" matTooltip="Edit Bray" matTooltipClass="default-tooltip">
+                <mat-icon>edit</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle (click)="deleteBray(bray.id)" matTooltip="Remove Bray" matTooltipClass="default-tooltip">
+                <mat-icon>delete</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card-actions>
+</mat-card>
 
-<div *ngIf="(brays$|async)?.length === 0">
-    djkshds
-</div>
+<mat-card *ngIf="(brays$|async)?.brays.length === 0 && !loading" fxFlex="100">
+    <mat-card-header>
+        <mat-card-title>Take it easy! All donkeys are relaxed</mat-card-title>
+    </mat-card-header>
+    <!--<img mat-card-image src="assets/img/donkey-relax.jpg" />-->
+</mat-card>
 
 <button mat-fab matTooltip="New Bray" matTooltipClass="default-tooltip" (click)="openForm(false)">
     <img src="assets/img/bray-icon.png" />

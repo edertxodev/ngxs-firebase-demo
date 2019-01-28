@@ -1,24 +1,21 @@
 @import "../assets/scss/_variables";
 
-.mat-drawer-container {
-}
-
 mat-toolbar {
-    mat-toolbar-row {
-        &:first-child {
-            height: 120px;
-        }
-        img {
-            width: 105px;
-            height: 105px;
-            border: 2px solid #f9f9f9;
-            border-radius: 15px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        h1 {
-            margin: auto;
-            font-family: 'Fredoka One', cursive;
-        }
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0;
+    z-index: 1000;
+    height: 120px;
+    img {
+        width: 78px;
+        height: 78px;
+        border: 2px solid #f9f9f9;
+        border-radius: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h1 {
+        margin: auto;
+        font-family: 'Fredoka One', cursive;
     }
 }

@@ -1,14 +1,25 @@
 <mat-sidenav-container fullscreen>
-    <mat-sidenav></mat-sidenav>
+    <mat-sidenav #sidenav mode="side">
+        <a (click)="logout();sidenav.toggle()">
+            <mat-icon>exit_to_app</mat-icon>
+            Logout
+        </a>
+    </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <mat-toolbar-row>
+            <button mat-button (click)="sidenav.toggle()" *ngIf="isLoggedIn()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <div fxLayout="column" fxLayoutAlign="center" fxFlex="100">
                 <img src="assets/img/logo.png" />
-            </mat-toolbar-row>
-            <mat-toolbar-row>
                 <h1>{{ title|uppercase }}</h1>
-            </mat-toolbar-row>
+            </div>
         </mat-toolbar>
-        <router-outlet></router-outlet>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutGap.lt-md="0" fxLayoutAlign="center" class="brays">
+            <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+            <div fxFlex="50">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

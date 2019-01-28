@@ -7,6 +7,7 @@ import { BrayState } from '../../../store/bray/bray.state'
 import { map } from 'rxjs/operators'
 import { MatDialog } from '@angular/material'
 import { BrayFormComponent } from '../form/form.component'
+import { LoadingService } from '../../../services/loading.service'
 
 @Component({
     selector: 'app-bray-list',
@@ -15,12 +16,18 @@ import { BrayFormComponent } from '../form/form.component'
 })
 export class ListBraysComponent implements OnInit {
     brays$: Observable<Bray[]>
+    loading: boolean
 
-    constructor(private store: Store, public dialog: MatDialog) {}
+    constructor(
+        private store: Store,
+        public dialog: MatDialog,
+        private loadingService: LoadingService
+    ) {}
 
     ngOnInit() {
-        this.store.dispatch(new LoadBrays())
+        this.loadingService.isLoading.subscribe(isLoading => this.loading = isLoading)
         this.brays$ = this.store.select(BrayState.brays)
+        this.store.dispatch(new LoadBrays())
     }
 
     deleteBray(id: string) {
