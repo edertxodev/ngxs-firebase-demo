@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Roboto:300,400,500');
 @import "~@angular/material/theming";
-@import "assets/scss/_variables";
 
 @include mat-core();
 
@@ -13,9 +12,6 @@ $braying-theme-light: mat-light-theme($braying-theme-primary, $braying-theme-acc
 
 @include angular-material-theme($braying-theme-light);
 
-body {
-    font-family: $roboto;
-}
 
 p {
     word-break: break-all;
@@ -31,13 +27,6 @@ button[mat-fab] {
             height: 40px;
         }
     }
-}
-
-.default-tooltip {
-    background: rgba(51, 51, 51, .8);
-    padding: 10px;
-    font-family: $roboto;
-    font-size: 1em;
 }
 
 mat-sidenav {

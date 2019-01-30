@@ -3,26 +3,35 @@ import { AuthStateModel, Login, LoginSuccess, Logout, LogoutSuccess } from './au
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
 import { NgZone } from '@angular/core'
+import { UserService } from '../../services/user.service'
 
 @State<AuthStateModel>({
     name: 'auth'
 })
 export class AuthState {
     @Selector() static token(state: AuthStateModel) { return state.token }
+    @Selector() static user(state: AuthStateModel) { return state.user }
 
-    constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private ngZone: NgZone,
+        private userService: UserService
+    ) {}
 
     @Action(Login)
     login(ctx: StateContext<AuthStateModel>, action: Login) {
         return this.authService.signInWithGoogle()
             .then(res => {
+                console.log(res)
                 ctx.dispatch(new LoginSuccess(res))
             })
     }
 
     @Action(LoginSuccess)
     loginSuccess(ctx: StateContext<AuthStateModel>, action: LoginSuccess) {
-        ctx.patchState({token: action.userResponse.credential.idToken, username: action.userResponse.user.email})
+        const user = this.userService.createFromGoogleUser(action.userResponse)
+        ctx.patchState({token: action.userResponse.credential.idToken, user: user})
         this.ngZone.run(() => this.router.navigate(['/']))
     }
 

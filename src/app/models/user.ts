@@ -1,6 +1,7 @@
 export interface User {
     id?: string
-    username?: string
-    createdAt?: number
-    updatedAt?: number
+    email?: string
+    name?: string
+    avatar?: string
+    activeSince?: number
 }

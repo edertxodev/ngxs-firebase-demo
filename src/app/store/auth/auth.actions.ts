@@ -1,6 +1,8 @@
+import { User } from '../../models/user'
+
 export class AuthStateModel {
     token?: string
-    username?: string
+    user?: User
 }
 
 export class Login {

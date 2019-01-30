@@ -1,21 +1,43 @@
-@import "../assets/scss/_variables";
+@import "~@angular/material/theming";
 
-mat-toolbar {
-    position: sticky;
-    position: -webkit-sticky; /* For macOS/iOS Safari */
-    top: 0;
-    z-index: 1000;
-    height: 120px;
-    img {
-        width: 78px;
-        height: 78px;
-        border: 2px solid #f9f9f9;
-        border-radius: 15px;
-        margin-left: auto;
-        margin-right: auto;
+mat-sidenav-container {
+    mat-sidenav {
+        min-width: 200px;
+        mat-card {
+            box-shadow: none;
+            background-color: mat-color($mat-brown, 500) !important;;
+            color: $light-primary-text;
+            padding: 30px 20px;
+            img {
+                border: 2px solid $light-primary-text;
+            }
+        }
+        mat-nav-list {
+            padding-top: 0;
+            mat-list-item {
+                color: $light-primary-text;
+            }
+        }
     }
-    h1 {
-        margin: auto;
-        font-family: 'Fredoka One', cursive;
+    mat-sidenav-content {
+        mat-toolbar {
+            position: sticky;
+            position: -webkit-sticky; /* For macOS/iOS Safari */
+            top: 0;
+            z-index: 1000;
+            height: 120px;
+            img {
+                width: 78px;
+                height: 78px;
+                border: 2px solid $light-primary-text;;
+                border-radius: 15px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            h1 {
+                margin: auto;
+                font-family: 'Fredoka One', cursive;
+            }
+        }
     }
 }

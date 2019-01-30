@@ -4,9 +4,12 @@ import {
     MatButtonToggleModule,
     MatCardModule,
     MatDialogModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule, MatProgressBarModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
     MatSidenavModule,
     MatToolbarModule,
     MatTooltipModule
@@ -25,6 +28,8 @@ import {
         MatInputModule,
         MatFormFieldModule,
         MatProgressBarModule,
+        MatListModule,
+        MatDividerModule,
     ],
     exports: [
         MatToolbarModule,
@@ -38,6 +43,8 @@ import {
         MatInputModule,
         MatFormFieldModule,
         MatProgressBarModule,
+        MatListModule,
+        MatDividerModule,
     ]
 })
 export class MaterialComponentsModule {}

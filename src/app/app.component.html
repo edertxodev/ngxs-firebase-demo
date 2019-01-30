@@ -1,23 +1,36 @@
-<mat-sidenav-container fullscreen>
-    <mat-sidenav #sidenav mode="side">
-        <a (click)="logout();sidenav.toggle()">
-            <mat-icon>exit_to_app</mat-icon>
-            Logout
-        </a>
+<mat-sidenav-container fullscreen [hasBackdrop]="!sidenavOpened">
+    <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened">
+        <mat-card ngClass="user-info">
+            <mat-card-header>
+                <img src="{{ (user$|async)?.avatar }}" mat-card-avatar />
+                <mat-card-title>{{ (user$|async)?.name }}</mat-card-title>
+                <mat-card-subtitle>{{ (user$|async)?.activeSince | dateFormat }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-nav-list role="list">
+            <mat-list-item routerLink="/">
+                <mat-icon>home</mat-icon> Home
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item (click)="logout();sidenav.toggle()">
+                <mat-icon>exit_to_app</mat-icon> Logout
+            </mat-list-item>
+        </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <button mat-button (click)="sidenav.toggle()" *ngIf="isLoggedIn()">
+            <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isLoggedIn() && !sidenavOpened">
                 <mat-icon>menu</mat-icon>
             </button>
             <div fxLayout="column" fxLayoutAlign="center" fxFlex="100">
-                <img src="assets/img/logo.png" />
+                <!-- <img src="assets/img/logo.png" /> -->
                 <h1>{{ title|uppercase }}</h1>
             </div>
         </mat-toolbar>
-        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutGap.lt-md="0" fxLayoutAlign="center" class="brays">
-            <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutGap.lt-md="0" fxLayoutAlign="center">
             <div fxFlex="50">
+                <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
                 <router-outlet></router-outlet>
             </div>
         </div>

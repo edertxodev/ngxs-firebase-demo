@@ -20,11 +20,13 @@ import { FlexLayoutModule } from '@angular/flex-layout'
 import { LoginComponent } from './components/login/login.component'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'
+import { PipeModule } from './pipes/pipe.module'
+import { DeviceDetectorModule } from 'ngx-device-detector'
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
@@ -41,7 +43,9 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'
         RouterModule.forRoot(AppRoutes),
         ReactiveFormsModule,
         FlexLayoutModule,
+        DeviceDetectorModule.forRoot(),
 
+        PipeModule,
         BrayModule,
     ],
     providers: [],

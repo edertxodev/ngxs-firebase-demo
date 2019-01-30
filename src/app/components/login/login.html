@@ -1,13 +1,12 @@
-<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-    <div fxFlex="100">
-        <mat-card>
-            <mat-card-title>
-                Log in
-            </mat-card-title>
-            <button mat-button (click)="googleLogin()" class="btn-block">
-                <img src="assets/img/google.png" />
-                Log in with Google
-            </button>
-        </mat-card>
-    </div>
-</div>
+<mat-card fxLayoutAlign="center center">
+    <mat-card-content fxLayout="column" fxFlex="50">
+        <button mat-raised-button (click)="googleLogin()">
+            <img src="assets/img/google.png" />
+            <span fxFlex="80">Log in with Google</span>
+        </button>
+        <button mat-raised-button>
+            <img src="assets/img/facebook.png" />
+            <span fxFlex="80">Log in with Facebook</span>
+        </button>
+    </mat-card-content>
+</mat-card>
