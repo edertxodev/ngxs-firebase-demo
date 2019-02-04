@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms'
 import { BrayService } from '../../../services/bray.service'
 import { AddBray, UpdateBray } from '../../../store/bray/bray.actions'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
+import { User } from '../../../models/user'
+import { AuthState } from '../../../store/auth/auth.state'
 
 export interface DialogData {
     editing: boolean,

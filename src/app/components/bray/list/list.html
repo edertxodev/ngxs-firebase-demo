@@ -1,7 +1,7 @@
 <mat-card *ngFor="let bray of (brays$|async)?.brays; let i = index" class="bray">
     <mat-card-header>
-        <img src="assets/img/user.jpg" mat-card-avatar />
-        <mat-card-title>Shiba Inu</mat-card-title>
+        <img src="{{ bray.user.avatar }}" mat-card-avatar />
+        <mat-card-title>{{ bray.user.name }}</mat-card-title>
         <mat-card-subtitle>{{ bray.createdAt|dateTimeFormat }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>

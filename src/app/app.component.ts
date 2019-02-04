@@ -14,9 +14,9 @@ import { DeviceDetectorService } from 'ngx-device-detector'
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    private user$: Observable<User>
-    private sidenavOpened: boolean
-    private sidenavMode: string
+    user$: Observable<User>
+    sidenavOpened: boolean
+    sidenavMode: string
     title = 'Braying in the name of'
     loading: boolean
 

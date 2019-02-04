@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { User } from '../models/user'
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,20 @@ import { map } from 'rxjs/operators'
 export class FirebaseService {
     constructor(private db: AngularFirestore) {}
 
-    getAll(collectionName: string): Observable<any> {
+    getAll(collectionName: string, user?: User): Observable<any> {
+        if (user) {
+            return this.db.collection(`users/${user.id}/${collectionName}`).snapshotChanges()
+                .pipe(
+                    map(actions => actions.map((a: any) => {
+                        const data = a.payload.doc.data()
+                        const parent = a.payload.doc.ref.parent.parent.id
+                        const id = a.payload.doc.id
+
+                        return { id, ...data, parent }
+                    }))
+                )
+        }
+
         return this.db.collection(collectionName).snapshotChanges()
             .pipe(
                 map(actions => actions.map((a: any) => {
@@ -21,7 +35,14 @@ export class FirebaseService {
             )
     }
 
-    add(collectionName: string, object: any): Promise<any> {
+    add(collectionName: string, object: any, user?: User): Promise<any> {
+        if (user) {
+            this.db.collection('users').doc(user.id).collection(collectionName).add(object)
+        }
+        if (object.email && object.name) {
+            return this.db.collection(collectionName).doc(object.id).set(object)
+        }
+
         return this.db.collection(collectionName).add(object)
     }
 
@@ -39,6 +60,10 @@ export class FirebaseService {
                     return { id, ...data }
                 })
             )
+    }
+
+    getCollection(collectionName: string) {
+        return this.db.collection(collectionName)
     }
 
     removeOne(collectionName: string, documentId: string) {

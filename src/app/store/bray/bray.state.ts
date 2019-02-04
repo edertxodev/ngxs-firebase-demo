@@ -1,4 +1,4 @@
-import { Action, Selector, State, StateContext } from '@ngxs/store'
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store'
 import { FirebaseService } from '../../services/firebase.service'
 import {
     AddBray,
@@ -11,6 +11,7 @@ import {
     UpdateBrayFailure
 } from './bray.actions'
 import { LoadingService } from '../../services/loading.service'
+import { AuthState } from '../auth/auth.state'
 
 @State<BrayStateModel>({
     name: 'brays',
@@ -21,7 +22,11 @@ import { LoadingService } from '../../services/loading.service'
 export class BrayState {
     private readonly collectionName = 'brays'
 
-    constructor(private firebaseService: FirebaseService, private loadingService: LoadingService) {}
+    constructor(
+        private firebaseService: FirebaseService,
+        private loadingService: LoadingService,
+        private store: Store
+    ) {}
 
     @Selector() static brays(state: any[]) { return state }
 
@@ -34,7 +39,8 @@ export class BrayState {
 
     @Action(LoadBrays)
     async loadBrays(ctx: StateContext<BrayStateModel>, action: LoadBrays) {
-        this.firebaseService.getAll(this.collectionName)
+        const user = this.store.selectSnapshot(AuthState.user)
+        this.firebaseService.getAll(this.collectionName, user)
             .subscribe(res => {
                 ctx.dispatch(new LoadBraysSuccess(res))
             }, error => {
@@ -44,6 +50,7 @@ export class BrayState {
 
     @Action(LoadBraysSuccess)
     loadBraysSuccess(ctx: StateContext<BrayStateModel>, action: LoadBraysSuccess) {
+        const user = this.firebaseService.getOne('users', action.brays[0]['parent'])
         this.loadingService.changeLoading(false)
         ctx.patchState({ brays: action.brays })
     }
@@ -55,7 +62,8 @@ export class BrayState {
 
     @Action(AddBray)
     addBray(ctx: StateContext<BrayStateModel>, action: AddBray) {
-        this.firebaseService.add(this.collectionName, action.bray)
+        const user = this.store.selectSnapshot(AuthState.user)
+        this.firebaseService.add(this.collectionName, action.bray, user)
             .catch(error => ctx.dispatch(new AddBrayFailure(error)))
     }
 

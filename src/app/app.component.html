@@ -1,6 +1,6 @@
 <mat-sidenav-container fullscreen [hasBackdrop]="!sidenavOpened">
     <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened">
-        <mat-card ngClass="user-info">
+        <mat-card ngClass="user-info" *ngIf="isLoggedIn()">
             <mat-card-header>
                 <img src="{{ (user$|async)?.avatar }}" mat-card-avatar />
                 <mat-card-title>{{ (user$|async)?.name }}</mat-card-title>
@@ -9,11 +9,11 @@
         </mat-card>
         <mat-divider></mat-divider>
         <mat-nav-list role="list">
-            <mat-list-item routerLink="/">
+            <mat-list-item routerLink="/" *ngIf="isLoggedIn()">
                 <mat-icon>home</mat-icon> Home
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item (click)="logout();sidenav.toggle()">
+            <mat-list-item (click)="logout();sidenav.toggle()" *ngIf="isLoggedIn()">
                 <mat-icon>exit_to_app</mat-icon> Logout
             </mat-list-item>
         </mat-nav-list>
